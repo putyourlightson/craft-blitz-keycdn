@@ -22,6 +22,11 @@
           "putyourlightson\\blitzkeycdn\\": "src/"
         }
     },
+    "support": {
+        "docs": "https://github.com/putyourlightson/craft-blitz-keycdn",
+        "source": "https://github.com/putyourlightson/craft-blitz-keycdn",
+        "issues": "https://github.com/putyourlightson/craft-blitz-keycdn/issues"
+    },
     "extra": {
         "name": "Blitz KeyCDN Purger",
         "developer": "PutYourLightsOn",

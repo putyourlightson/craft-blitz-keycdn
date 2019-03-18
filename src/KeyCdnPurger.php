@@ -9,6 +9,7 @@ use Craft;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
+use putyourlightson\blitz\drivers\purgers\BaseCachePurger;
 use putyourlightson\blitz\helpers\SiteUriHelper;
 use putyourlightson\blitz\models\SiteUriModel;
 
@@ -44,6 +45,18 @@ class KeyCdnPurger extends BaseCachePurger
     public static function displayName(): string
     {
         return Craft::t('blitz', 'Key CDN Purger');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getTemplatesRoot(): array
+    {
+        $templatePage = __DIR__.'/templates/';
+
+        return [
+            'blitz-keycdn' => $templatePage
+        ];
     }
 
     // Public Methods
@@ -117,7 +130,7 @@ class KeyCdnPurger extends BaseCachePurger
      */
     public function getSettingsHtml()
     {
-        return Craft::$app->getView()->renderTemplate('blitzkeycdn/settings', [
+        return Craft::$app->getView()->renderTemplate('blitz-keycdn/settings', [
             'purger' => $this,
         ]);
     }
