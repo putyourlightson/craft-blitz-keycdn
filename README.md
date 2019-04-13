@@ -20,17 +20,17 @@ Then add the class to the `cachePurgerTypes` config setting in `config/blitz.php
 ],
 ```
 
-You can then select the purger and settings in the control panel or in `config/blitz.php`.
+You can then select the purger and settings either in the control panel or in `config/blitz.php`.
 
 ```
-  // The purger type to use.
-  'cachePurgerType' => 'putyourlightson\blitzkeycdn\KeyCdnPurger',
+// The purger type to use.
+'cachePurgerType' => 'putyourlightson\blitzkeycdn\KeyCdnPurger',
 
-  // The purger settings.
-  'cachePurgerSettings' => [
-     'apiKey' => 'sk_prod_abcdefgh1234567890',
-     'zoneId' => '123456',
-  ],
+// The purger settings.
+'cachePurgerSettings' => [
+   'apiKey' => 'sk_prod_abcdefgh1234567890',
+   'zoneId' => '123456',
+],
 ```
 
 ## Documentation
