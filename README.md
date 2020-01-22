@@ -29,7 +29,7 @@ You can then select the purger and settings either in the control panel or in `c
 // The purger settings.
 'cachePurgerSettings' => [
    'apiKey' => 'sk_prod_abcdefgh1234567890',
-   'zoneId' => '123456',
+   'zoneId' => '123456789',
 ],
 ```
 
