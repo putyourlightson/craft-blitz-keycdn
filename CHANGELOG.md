@@ -1,4 +1,7 @@
 # Release Notes for Blitz KeyCDN Purger
 
+## 2.0.0 - 2020-01-22
+- Changed minimum required version of Blitz to 3.0.0.
+
 ## 1.0.0 - 2019-03-18
 - Initial release.
