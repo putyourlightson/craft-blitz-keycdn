@@ -118,7 +118,7 @@ class KeyCdnPurger extends BaseCachePurger
         }
 
         $this->_sendRequest('delete', 'purgeurl', [
-            'urls' => SiteUriHelper::getUrls($siteUris)
+            'urls' => SiteUriHelper::getUrlsFromSiteUris($siteUris)
         ]);
 
         if ($this->hasEventHandlers(self::EVENT_AFTER_PURGE_CACHE)) {
