@@ -1,7 +1,7 @@
 {
     "name": "putyourlightson/craft-blitz-keycdn",
     "description": "KeyCDN cache purger for the Blitz plugin for Craft CMS.",
-    "version": "2.0.1",
+    "version": "3.0.0-beta.1",
     "type": "blitz-purger",
     "license": "proprietary",
     "keywords": [
@@ -14,8 +14,9 @@
         "purger"
     ],
     "require": {
-        "craftcms/cms": "^3.1.0",
-        "putyourlightson/craft-blitz": "^3.0.0"
+        "php": "^8.0.2",
+        "craftcms/cms": "^4.0.0-beta.1",
+        "putyourlightson/craft-blitz": "^4.0.0-beta.2"
     },
     "autoload": {
         "psr-4": {
@@ -31,6 +32,6 @@
         "name": "Blitz KeyCDN Purger",
         "developer": "PutYourLightsOn",
         "developerUrl": "https://putyourlightson.com/",
-        "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-blitz-keycdn/v2/CHANGELOG.md"
+        "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-blitz-keycdn/v3/CHANGELOG.md"
     }
 }

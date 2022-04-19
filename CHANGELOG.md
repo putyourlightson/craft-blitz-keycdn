@@ -1,7 +1,13 @@
 # Release Notes for Blitz KeyCDN Purger
 
-## 2.0.1 - 2020-01-25
+## 3.0.0-beta.1 - 2022-04-19
+### Added
+- Added compatibility with Craft 4.
 
+### Changed
+- Changed minimum required version of Blitz to 4.0.0-beta.2.
+
+## 2.0.1 - 2020-01-25
 ### Fixed
 - Fixed bug in getting URLS to purge.
 

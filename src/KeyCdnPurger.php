@@ -8,6 +8,7 @@ namespace putyourlightson\blitzkeycdn;
 use Craft;
 use craft\behaviors\EnvAttributeParserBehavior;
 use craft\events\RegisterTemplateRootsEvent;
+use craft\helpers\App;
 use craft\web\View;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -15,34 +16,24 @@ use Psr\Http\Message\ResponseInterface;
 use putyourlightson\blitz\drivers\purgers\BaseCachePurger;
 use putyourlightson\blitz\events\RefreshCacheEvent;
 use putyourlightson\blitz\helpers\SiteUriHelper;
-use putyourlightson\blitz\models\SiteUriModel;
 use yii\base\Event;
 
 /**
- * @property mixed $settingsHtml
+ * @property-read null|string $settingsHtml
  */
 class KeyCdnPurger extends BaseCachePurger
 {
-    // Constants
-    // =========================================================================
-
-    const API_ENDPOINT = 'https://api.keycdn.com/';
-
-    // Properties
-    // =========================================================================
+    public const API_ENDPOINT = 'https://api.keycdn.com/';
 
     /**
      * @var string
      */
-    public $apiKey;
+    public string $apiKey = '';
 
     /**
      * @var string
      */
-    public $zoneId;
-
-    // Static
-    // =========================================================================
+    public string $zoneId = '';
 
     /**
      * @inheritdoc
@@ -52,17 +43,14 @@ class KeyCdnPurger extends BaseCachePurger
         return Craft::t('blitz', 'Key CDN Purger');
     }
 
-    // Public Methods
-    // =========================================================================
-
     /**
      * @inheritdoc
      */
-    public function init()
+    public function init(): void
     {
         Event::on(View::class, View::EVENT_REGISTER_CP_TEMPLATE_ROOTS,
             function(RegisterTemplateRootsEvent $event) {
-                $event->roots['blitz-keycdn'] = __DIR__.'/templates/';
+                $event->roots['blitz-keycdn'] = __DIR__ . '/templates/';
             }
         );
     }
@@ -70,7 +58,7 @@ class KeyCdnPurger extends BaseCachePurger
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         $behaviors = parent::behaviors();
         $behaviors['parser'] = [
@@ -98,7 +86,7 @@ class KeyCdnPurger extends BaseCachePurger
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['apiKey', 'zoneId'], 'required'],
@@ -108,28 +96,33 @@ class KeyCdnPurger extends BaseCachePurger
     /**
      * @inheritdoc
      */
-    public function purgeUris(array $siteUris)
+    public function purgeUrisWithProgress(array $siteUris, callable $setProgressHandler = null): void
     {
-        $event = new RefreshCacheEvent(['siteUris' => $siteUris]);
-        $this->trigger(self::EVENT_BEFORE_PURGE_CACHE, $event);
+        $count = 0;
+        $total = count($siteUris);
+        $label = 'Purging {total} pages.';
 
-        if (!$event->isValid) {
-            return;
+        if (is_callable($setProgressHandler)) {
+            $progressLabel = Craft::t('blitz', $label, ['total' => $total]);
+            call_user_func($setProgressHandler, $count, $total, $progressLabel);
         }
 
         $this->_sendRequest('delete', 'purgeurl', [
-            'urls' => SiteUriHelper::getUrlsFromSiteUris($siteUris)
+            'urls' => SiteUriHelper::getUrlsFromSiteUris($siteUris),
         ]);
 
-        if ($this->hasEventHandlers(self::EVENT_AFTER_PURGE_CACHE)) {
-            $this->trigger(self::EVENT_AFTER_PURGE_CACHE, $event);
+        $count = $total;
+
+        if (is_callable($setProgressHandler)) {
+            $progressLabel = Craft::t('blitz', $label, ['total' => $total]);
+            call_user_func($setProgressHandler, $count, $total, $progressLabel);
         }
     }
 
     /**
      * @inheritdoc
      */
-    public function purgeAll()
+    public function purgeAll(callable $setProgressHandler = null, bool $queue = true): void
     {
         $event = new RefreshCacheEvent();
         $this->trigger(self::EVENT_BEFORE_PURGE_ALL_CACHE, $event);
@@ -162,45 +155,36 @@ class KeyCdnPurger extends BaseCachePurger
     /**
      * @inheritdoc
      */
-    public function getSettingsHtml()
+    public function getSettingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate('blitz-keycdn/settings', [
             'purger' => $this,
         ]);
     }
 
-    // Private Methods
-    // =========================================================================
-
     /**
      * Sends a request to the API.
-     *
-     * @param string $method
-     * @param string|null $action
-     * @param array|null $params
-     *
-     * @return ResponseInterface|string
      */
-    private function _sendRequest(string $method, string $action = '', array $params = [])
+    private function _sendRequest(string $method, string $action = '', array $params = []): ?ResponseInterface
     {
-        $response = '';
+        $response = null;
 
         $client = Craft::createGuzzleClient([
             'base_uri' => self::API_ENDPOINT,
-            'headers'  => [
+            'headers' => [
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Basic '.base64_encode(Craft::parseEnv($this->apiKey).':'),
-            ]
+                'Authorization' => 'Basic ' . base64_encode(App::parseEnv($this->apiKey) . ':'),
+            ],
         ]);
 
-        $uri = 'zones/'.($action ? $action.'/' : '').Craft::parseEnv($this->zoneId).'.json';
+        $uri = 'zones/' . ($action ? $action . '/' : '') . App::parseEnv($this->zoneId) . '.json';
         $options = !empty($params) ? ['json' => $params] : [];
 
         try {
             $response = $client->request($method, $uri, $options);
         }
-        catch (BadResponseException $e) { }
-        catch (GuzzleException $e) { }
+        catch (BadResponseException|GuzzleException) {
+        }
 
         return $response;
     }

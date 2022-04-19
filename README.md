@@ -1,3 +1,8 @@
+[![Stable Version](https://img.shields.io/packagist/v/putyourlightson/craft-blitz-keycdn?label=stable)]((https://packagist.org/packages/putyourlightson/craft-blitz-keycdn))
+[![Total Downloads](https://img.shields.io/packagist/dt/putyourlightson/craft-blitz-keycdn)](https://packagist.org/packages/putyourlightson/craft-blitz-keycdn)
+
+<p align="center"><img width="130" src="https://putyourlightson.com/assets/logos/blitz.svg"></p>
+
 # Blitz KeyCDN Purger for Craft CMS
 
 The KeyCDN Purger allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to intelligently purge cached pages.
@@ -6,7 +11,7 @@ The KeyCDN Purger allows the [Blitz](https://putyourlightson.com/plugins/blitz) 
 
 Install the purger using composer.
 
-```
+```shell
 composer require putyourlightson/craft-blitz-keycdn
 ```
 
@@ -15,7 +20,6 @@ Then add the class to the `cachePurgerTypes` config setting in `config/blitz.php
 ```php
 // The purger type classes to add to the plugin’s default purger types.
 'cachePurgerTypes' => [
-    'putyourlightson\blitz\drivers\purgers\CloudflarePurger',
     'putyourlightson\blitzkeycdn\KeyCdnPurger',
 ],
 ```
