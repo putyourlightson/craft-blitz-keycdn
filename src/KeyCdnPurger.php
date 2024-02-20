@@ -107,7 +107,7 @@ class KeyCdnPurger extends BaseCachePurger
             call_user_func($setProgressHandler, $count, $total, $progressLabel);
         }
 
-        $this->_sendRequest('delete', 'purgeurl', [
+        $this->sendRequest('delete', 'purgeurl', [
             'urls' => SiteUriHelper::getUrlsFromSiteUris($siteUris),
         ]);
 
@@ -131,7 +131,7 @@ class KeyCdnPurger extends BaseCachePurger
             return;
         }
 
-        $this->_sendRequest('get', 'purge');
+        $this->sendRequest('get', 'purge');
 
         if ($this->hasEventHandlers(self::EVENT_AFTER_PURGE_ALL_CACHE)) {
             $this->trigger(self::EVENT_AFTER_PURGE_ALL_CACHE, $event);
@@ -143,7 +143,7 @@ class KeyCdnPurger extends BaseCachePurger
      */
     public function test(): bool
     {
-        $response = $this->_sendRequest('get');
+        $response = $this->sendRequest('get');
 
         if (!$response) {
             return false;
@@ -165,7 +165,7 @@ class KeyCdnPurger extends BaseCachePurger
     /**
      * Sends a request to the API.
      */
-    private function _sendRequest(string $method, string $action = '', array $params = []): ?ResponseInterface
+    private function sendRequest(string $method, string $action = '', array $params = []): ?ResponseInterface
     {
         $response = null;
 
@@ -182,8 +182,7 @@ class KeyCdnPurger extends BaseCachePurger
 
         try {
             $response = $client->request($method, $uri, $options);
-        }
-        catch (BadResponseException|GuzzleException) {
+        } catch (BadResponseException|GuzzleException) {
         }
 
         return $response;
