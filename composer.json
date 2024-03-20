@@ -1,14 +1,16 @@
 {
   "name": "putyourlightson/craft-blitz-keycdn",
   "description": "KeyCDN cache purger for the Blitz plugin for Craft CMS.",
-  "version": "4.0.0-beta.1",
-  "type": "blitz-purger",
+  "version": "5.0.0-beta.1",
+  "type": "craft-plugin",
+  "homepage": "https://putyourlightson.com/plugins/blitz",
   "license": "proprietary",
   "keywords": [
     "craftcms",
-    "blitz",
+    "key",
+    "cdn",
     "cache",
-    "keycdn",
+    "blitz",
     "purger"
   ],
   "require": {
@@ -20,17 +22,15 @@
     "craftcms/ecs": "dev-main",
     "craftcms/phpstan": "dev-main"
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "autoload": {
-    "psr-4": {
-      "putyourlightson\\blitzkeycdn\\": "src/"
-    }
-  },
   "scripts": {
     "phpstan": "phpstan --ansi --memory-limit=1G",
     "check-cs": "ecs check --ansi",
     "fix-cs": "ecs check --fix --ansi"
+  },
+  "autoload": {
+    "psr-4": {
+      "putyourlightson\\blitzkeycdn\\": "src/"
+    }
   },
   "config": {
     "allow-plugins": {
@@ -48,8 +48,11 @@
   },
   "extra": {
     "name": "Blitz KeyCDN Purger",
+    "handle": "blitz-keycdn",
     "developer": "PutYourLightsOn",
     "developerUrl": "https://putyourlightson.com/",
-    "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-blitz-keycdn/v3/CHANGELOG.md"
+    "documentationUrl": "https://github.com/putyourlightson/craft-blitz-keycdn",
+    "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-blitz-keycdn/v5/CHANGELOG.md",
+    "class": "putyourlightson\\blitzkeycdn\\Plugin"
   }
 }
