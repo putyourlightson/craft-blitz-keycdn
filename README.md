@@ -9,7 +9,7 @@ The KeyCDN Purger plugin allows the [Blitz](https://putyourlightson.com/plugins/
 
 ## Documentation
 
-Read the documentation at [putyourlightson.com/plugins/blitz](https://putyourlightson.com/plugins/blitz#reverse-proxy-purgers).
+Read the documentation at [putyourlightson.com/plugins/blitz »](https://putyourlightson.com/plugins/blitz#reverse-proxy-purgers)
 
 ## License
 
