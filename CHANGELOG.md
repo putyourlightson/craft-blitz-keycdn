@@ -1,18 +1,5 @@
 # Release Notes for Blitz KeyCDN Purger
 
-## 3.0.0 - 2022-07-04
-### Added
-- Added compatibility with Craft 4.
+## 4.0.0 - 2024-03-19
 
-### Changed
-- Changed minimum required version of Blitz to 4.0.0.
-
-## 2.0.1 - 2020-01-25
-### Fixed
-- Fixed bug in getting URLS to purge.
-
-## 2.0.0 - 2020-01-22
-- Changed minimum required version of Blitz to 3.0.0.
-
-## 1.0.0 - 2019-03-18
-- Initial release.
+> {warning} Blitz KeyCDN Purger is now a Craft CMS plugin rather than a PHP package, and as such it must be installed via Craft to be usable. You should manually remove `KeyCdnPurger` from the `cachePurgerTypes` config setting in your `config/blitz.php` file, if it exists, since the plugin now registers the purger automatically.
