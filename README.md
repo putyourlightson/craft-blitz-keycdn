@@ -5,7 +5,7 @@
 
 # Blitz KeyCDN Purger for Craft CMS
 
-The KeyCDN Purger plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to intelligently purge pages cached on KeyCDN.
+The KeyCDN Purger plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to intelligently purge pages cached on [KeyCDN](https://www.keycdn.com/).
 
 ## Documentation
 
